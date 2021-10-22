@@ -2,6 +2,7 @@ let file_input          = document.getElementById("file-input");
 let brightness_slider   = document.getElementById("brightness");
 let contrast_slider     = document.getElementById("contrast");
 let transparent_slider  = document.getElementById("transparent");
+let save_button         = document.getElementById("save-button");
 
 function truncate(num){
     if(num < 0) num = 0;
@@ -54,6 +55,15 @@ file_input.addEventListener("change", (event_change) => {
                     }
                     ctx.putImageData(image_data, 0, 0);
                 });
+
+                save_button.addEventListener("click", function downloadCanvas(){
+                    let tmpLink = document.createElement( 'a' );
+                    tmpLink.download = 'image.png';
+                    tmpLink.href = canvas.toDataURL();
+                    document.body.appendChild( tmpLink );
+                    tmpLink.click();
+                    document.body.removeChild( tmpLink );
+                })
             })
 
             image.src = event_loadend.target.result;
